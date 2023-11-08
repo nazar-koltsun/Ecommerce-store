@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --link-color: #f4f4f4;
+}
+
 html,
 body {
   height: 100%;

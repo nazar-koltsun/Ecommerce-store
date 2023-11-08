@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import Container from '@/components/ui/Container';
+
 import './globals.css';
+
 
 const font = Urbanist({ subsets: ['latin'] });
 
@@ -16,7 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className + ' grid grid-rows-[min-content_1fr_min-content]'}>
+        <Navbar />
+        <Container className='py-4 px-[15px]'>
+          {children}
+        </Container>
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Container from '@/components/ui/Container';
 import MainMav from '@/components/MainNav';
+import NavBarActions from '@/components/NavBarActions';
 import { Category } from '@/types';
 import getCategories from '@/actions/get-categories';
 
@@ -14,6 +15,7 @@ const Navbar = async () => {
           <h1 className="text-2xl font-bold text-[var(--link-color)]">Store</h1>
         </Link>
         <MainMav data={categories} />
+        <NavBarActions />
       </Container>
     </nav>
   );

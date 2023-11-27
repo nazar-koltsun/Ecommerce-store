@@ -5,6 +5,7 @@ import Image from 'next/image';
 import IconButton from '@/components/ui/IconButton';
 import Currency from '@/components/ui/Currency';
 import { Expand, ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 
 interface ProductCardProps {
   product: Product;
@@ -12,7 +13,10 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="group flex flex-col p-4 border-dashed border-2 border-gray-100 rounded-md relative">
+    <Link
+      href={'/products/' + product.id}
+      className="group flex flex-col p-4 border-dashed border-2 border-gray-100 rounded-md relative"
+    >
       <Image
         src={product.images[0].url}
         alt={product.name}
@@ -24,13 +28,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <IconButton icon={<ShoppingCart size={18} />} onClick={() => {}} />
       </div>
       <div>
-        <p className='font-bold'>{product.name}</p>
-        <p className='font-semibold'>{product.category.name}</p>
+        <p className="font-bold">{product.name}</p>
+        <p className="font-semibold">{product.category.name}</p>
       </div>
-      <div className='pt-4'>
+      <div className="pt-4">
         <Currency value={product.price} />
       </div>
-    </div>
+    </Link>
   );
 };
 

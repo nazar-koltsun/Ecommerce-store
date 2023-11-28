@@ -16,13 +16,13 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
   const relatedProducts = await getProducts({ categoryId: product.category.id, isFeatured: true });
 
   return (
-    <Container>
-      <div className="grid grid-cols-2">
+    <div>
+      <div className="grid gap-10 grid-cols-1 sm:grid-cols-[1fr_2fr]">
         <Gallery images={product.images} />
         <ProductInfo product={product} />
       </div>
       <ProductsList title='Related Products' products={relatedProducts} />
-    </Container>
+    </div>
   )
 }
 

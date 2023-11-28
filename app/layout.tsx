@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className + ' grid grid-rows-[min-content_1fr_min-content]'}>
         <Navbar />
-        <Container className='py-4 px-[15px]'>
+        <Container className='py-8 px-[15px]'>
           {children}
         </Container>
         <Footer />

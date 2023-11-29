@@ -7,10 +7,11 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   children?: React.ReactNode;
   icon?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, disabled, type = 'button', children, ...props }, ref) => {
+  ({ className, disabled, type = 'button', children, onClick, ...props }, ref) => {
     return (
       <button
         className={cn(
@@ -20,6 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled}
         type={type}
+        onClick={onClick}
       >
         {children}
       </button>

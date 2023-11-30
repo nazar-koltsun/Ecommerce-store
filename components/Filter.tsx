@@ -1,4 +1,5 @@
 'use client';
+import qs from 'query-string';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Button from '@/components/ui/Button';
@@ -23,26 +24,11 @@ const Filter: React.FC<FilterProps> = ({ valueKey, name, data }) => {
     (item) => item.id === activeFilterId
   )?.name || '';
 
-  let searchParamsValues = {} as Record<string, string>;
-
-  searchParams.forEach((value, key) => {
-    searchParamsValues[key] = value;
-  });
+  const searchParamsValues = qs.parse(searchParams.toString());
 
   const createNewUrl = () => {
-    let url = process.env.NEXT_PUBLIC_ROOT_URL + pathname;
-
-    let index = 0;
-    for (const key in searchParamsValues) {
-      if (index === 0) {
-        url += `?${key}=${searchParamsValues[key]}`;
-      } else {
-        url += `&${key}=${searchParamsValues[key]}`;
-      }
-      index++;
-    }
-
-    return url;
+    const rootUrl = process.env.NEXT_PUBLIC_ROOT_URL;
+    return rootUrl + pathname + '?' + qs.stringify(searchParamsValues);
   };
 
   const onFilterItemClick = (valueKey: string, id: string) => {
@@ -82,7 +68,7 @@ const Filter: React.FC<FilterProps> = ({ valueKey, name, data }) => {
             onClick={onFilterItemClick.bind(null, valueKey, item.id)}
             className={cn('px-5 py-2 text-sm bg-gray-200 rounded-full', {
               'bg-gray-700 text-white':
-                searchParamsValues[valueKey] === item.id,
+              searchParamsValues[valueKey] === item.id,
             })}
           >
             {item.name}

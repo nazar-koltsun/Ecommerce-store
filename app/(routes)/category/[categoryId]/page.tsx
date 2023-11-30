@@ -35,13 +35,24 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   return (
     <div>
       <Billboard data={category.billboard} />
-      <div className='mt-4'>
-        <Filter valueKey="sizeId" name="Sizes" data={sizes} />
+      <div className='flex gap-20'>
+        {/* Mobile Filter */}
+
+        {/* Mobile Filter */}
+        
+        {/* Desktop Filter */}
+        <div className='hidden lg:block'>
+          <div className='mt-4'>
+            <Filter valueKey="sizeId" name="Sizes" data={sizes} />
+          </div>
+          <div className='mt-6'>
+            <Filter valueKey="colorId" name="Colors" data={colors} />
+          </div>
+        </div> 
+        {/* Desktop Filter */}
+
+        <ProductsList title='Featured Products' products={products} />
       </div>
-      <div className='mt-6'>
-        <Filter valueKey="colorId" name="Colors" data={colors} />
-      </div>
-      <ProductsList title='Featured Products' products={products} />
     </div>
   );
 };

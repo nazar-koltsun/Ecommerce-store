@@ -8,7 +8,7 @@ interface ProductsListProps {
 
 const ProductsList: React.FC<ProductsListProps> = ({ title, products }) => {
   return (
-    <div className="pt-10">
+    <div>
       <h2 className="text-3xl font-bold">{title}</h2>
       <div className="flex flex-wrap gap-8 mt-8">
         {products.map((product) => (

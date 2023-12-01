@@ -4,6 +4,7 @@ import getSizes from '@/actions/get-sizes';
 import getColors from '@/actions/get-colors';
 import Billboard from '@/components/Billboard';
 import Filter from '@/components/Filter';
+import MobileFilter from '@/components/MobileFilter';
 import ProductsList from '@/components/ProductsList';
 
 interface CategoryPageProps {
@@ -32,22 +33,34 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
 
   const category = await getCategory(categoryId);
 
+  const filterData = [
+    {
+      valueKey: "sizeId",
+      name: "Sizes",
+      data: sizes
+    },
+    {
+      valueKey: "colorId",
+      name: "Colors",
+      data: colors
+    }
+  ];
+
   return (
     <div>
       <Billboard data={category.billboard} />
-      <div className='flex gap-20'>
+      <div className='flex gap-20 mt-8'>
+        {/* Mobile Filter */}
+        <MobileFilter className='block lg:hidden' filterData={filterData}/>
         {/* Mobile Filter */}
 
-        {/* Mobile Filter */}
-        
         {/* Desktop Filter */}
-        <div className='hidden lg:block'>
-          <div className='mt-4'>
-            <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-          </div>
-          <div className='mt-6'>
-            <Filter valueKey="colorId" name="Colors" data={colors} />
-          </div>
+        <div className='hidden lg:block space-y-6'>
+          {filterData.map((filter) => (
+            <div key={filter.name}>
+              <Filter {...filter} />
+            </div>
+          ))}
         </div> 
         {/* Desktop Filter */}
 

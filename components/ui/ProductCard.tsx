@@ -1,20 +1,33 @@
 'use client';
 
+import usePreviewModal from '@/hooks/use-preview-modal';
 import { Product } from '@/types';
 import Image from 'next/image';
 import IconButton from '@/components/ui/IconButton';
 import Currency from '@/components/ui/Currency';
 import { Expand, ShoppingCart } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const router = useRouter();
+  const { onOpen } = usePreviewModal();
+
+  const opPreviewOpen = (event: MouseEvent) => {
+    event.stopPropagation();
+    onOpen(product);
+  };
+
+  const onCardClick = () => {
+    router.push(process.env.NEXT_PUBLIC_ROOT_URL + '/products/' + product.id);
+  };
+
   return (
-    <Link
-      href={'/products/' + product.id}
+    <div
+      onClick={onCardClick}
       className="group flex items-center max-[600px]:grow flex-col p-4 border-dashed border-2 border-gray-100 rounded-md relative"
     >
       <div>
@@ -25,7 +38,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           height={200}
         />
         <div className="flex gap-3 w-full place-content-center absolute opacity-0 left-0 bottom-6 pointer-events-none transition group-hover:opacity-100 group-hover:pointer-events-auto">
-          <IconButton icon={<Expand size={18} />} onClick={() => {}} />
+          <IconButton
+            icon={<Expand size={18} />}
+            onClick={opPreviewOpen as () => void}
+          />
           <IconButton icon={<ShoppingCart size={18} />} onClick={() => {}} />
         </div>
         <div>
@@ -36,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Currency value={product.price} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

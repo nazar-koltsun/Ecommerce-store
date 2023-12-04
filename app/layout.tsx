@@ -3,6 +3,7 @@ import { Urbanist } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Container from '@/components/ui/Container';
+import PreviewModal from '@/components/PreviewModal';
 
 import './globals.css';
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className + ' grid grid-rows-[min-content_1fr_min-content]'}>
+        <PreviewModal />
         <Navbar />
         <Container className='py-8 px-[15px]'>
           {children}

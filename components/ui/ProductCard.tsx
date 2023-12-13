@@ -8,6 +8,8 @@ import Currency from '@/components/ui/Currency';
 import { Expand, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import toast from 'react-hot-toast';
+
 interface ProductCardProps {
   product: Product;
 }
@@ -42,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             icon={<Expand size={18} />}
             onClick={opPreviewOpen as () => void}
           />
-          <IconButton icon={<ShoppingCart size={18} />} onClick={() => {}} />
+          <IconButton icon={<ShoppingCart size={18} />} onClick={() => toast.success('Here is your toast.')} />
         </div>
         <div>
           <p className="font-bold">{product.name}</p>

@@ -1,8 +1,10 @@
 'use client';
 
+import { MouseEventHandler } from "react";
+
 interface IconButtonProps {
   icon: React.ReactNode;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({icon, onClick}) => {

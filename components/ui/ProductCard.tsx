@@ -7,8 +7,9 @@ import IconButton from '@/components/ui/IconButton';
 import Currency from '@/components/ui/Currency';
 import { Expand, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import useCartStore from '@/hooks/use-cart-store';
 
-import toast from 'react-hot-toast';
+import { MouseEventHandler } from 'react';
 
 interface ProductCardProps {
   product: Product;
@@ -17,8 +18,9 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
   const { onOpen } = usePreviewModal();
+  const cart = useCartStore();
 
-  const opPreviewOpen = (event: MouseEvent) => {
+  const opPreviewOpen: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     onOpen(product);
   };
@@ -26,6 +28,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const onCardClick = () => {
     router.push(process.env.NEXT_PUBLIC_ROOT_URL + '/products/' + product.id);
   };
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    cart.add(product);
+  }
 
   return (
     <div
@@ -42,9 +49,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="flex gap-3 w-full place-content-center absolute opacity-0 left-0 bottom-6 pointer-events-none transition group-hover:opacity-100 group-hover:pointer-events-auto">
           <IconButton
             icon={<Expand size={18} />}
-            onClick={opPreviewOpen as () => void}
+            onClick={opPreviewOpen}
           />
-          <IconButton icon={<ShoppingCart size={18} />} onClick={() => toast.success('Here is your toast.')} />
+          <IconButton icon={<ShoppingCart size={18} />} onClick={onAddToCart} />
         </div>
         <div>
           <p className="font-bold">{product.name}</p>

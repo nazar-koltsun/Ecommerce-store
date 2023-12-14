@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import toast from 'react-hot-toast';
 
 import { Product } from '@/types';
@@ -18,7 +18,7 @@ const useCartStore = create(
       add: (product: Product) => {
         const { items } = get();
 
-        if(items.find((item) => item.id === product.id)) {
+        if (items.find((item) => item.id === product.id)) {
           toast.error('Already in cart');
 
           return;
@@ -35,9 +35,9 @@ const useCartStore = create(
       removeAll: () => {
         set({ items: [] });
         toast.success('Removed all from cart');
-      } 
+      },
     }),
-    { name: 'cart-storage', getStorage: () => localStorage }
+    { name: 'cart-storage', storage: createJSONStorage(() => localStorage) }
   )
 );
 

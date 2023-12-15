@@ -1,12 +1,15 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import Button from '@/components/ui/Button';
 import { ShoppingCart } from 'lucide-react';
 import useCartStore from '@/hooks/use-cart-store';
 
 const NavBarActions = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   const { items: cartItems } = useCartStore();
 
@@ -18,7 +21,12 @@ const NavBarActions = () => {
 
   return (
     <div className="flex items-center space-x-4">
-      <Button className={'flex items-center px-4 py-2 space-x-1'}>
+      <Button
+        className={'flex items-center px-4 py-2 space-x-1'}
+        onClick={() => {
+          router.push('/cart');
+        }}
+      >
         <ShoppingCart size={18} color="white" />
         <span className="text-[var(--link-color)]">{cartItems.length}</span>
       </Button>

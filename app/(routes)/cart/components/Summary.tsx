@@ -17,6 +17,31 @@ const Summary: React.FC<SummaryProps> = ({ className }) => {
     return acc + Number(item.price);
   }, 0);
 
+  const onCheckout = async () => {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify( {
+          productsIds: cartItems.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+  
+      const data = await response.json();
+  
+      window.location.href = data.url;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -34,7 +59,7 @@ const Summary: React.FC<SummaryProps> = ({ className }) => {
       <Button
         className="mt-8 w-full"
         disabled={cartItems.length === 0}
-        onClick={() => router.push(process.env.NEXT_PUBLIC_ADMIN_ROOT_URL + '/checkout')}
+        onClick={onCheckout}
       >
         Checkout
       </Button>
